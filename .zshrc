@@ -26,16 +26,20 @@ zinit ice depth=1; zinit light romkatv/powerlevel10k
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # syntax highlighting
-zinit light zsh-users/zsh-syntax-highlighting
+#zinit light zsh-users/zsh-syntax-highlighting
+zinit light zdharma-continuum/fast-syntax-highlighting
+fast-theme -q q-jmnemonic
 
 # snippets
+zinit snippet "https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/git.zsh"
 zinit snippet OMZP::git
 zinit snippet OMZP::sudo
 zinit snippet OMZP::cp
-zinit snippet OMZP::command-not-found
 # completions
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
+zinit ice lucid nocompile
+zinit load MenkeTechnologies/zsh-expand
 
 autoload -U compinit && compinit
 zinit cdreplay -q
@@ -58,30 +62,36 @@ setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 
+setopt auto_menu
+setopt list_packed
+setopt list_types
+setopt complete_in_word
+setopt always_to_end
+setopt globdots
 
 # Completion styling
-zstyle ':completion:*' matcher-list 'm:{a-z}={a-zA-Z}'
+zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|=*' 'l:|=* r:|=*' 'r:|?=**'
 zstyle ':completion:*' list-colors '${(s.:.)LS_COLORS}'
+zstyle ':completion:*' special-dirs true
 
 # Exports
 export PATH="$PATH"
+export QT_QPA_PLATFORM=wayland
+export XDG_CURRENT_DESKTOP=wlr
 
-function loadsshkeys()
-{
-	for i in "${HOME}/.ssh/*"; do
-		echo $i;
-	done
-}
 
-loadsshkeys()
+#dircolors -b > /dev/null
 
 # Alias
-alias ls='ls --color'
-alias la='ls -a'
-alias l='ls -AF --group-directories-first'
-alias ll='l -lh'
-alias v='vim'
-alias cp='cpv'
+alias ls="ls --color"
+alias la="ls -a"
+alias l="ls -AF --group-directories-first"
+alias ll="l -lh"
+alias v="nvim"
+alias cp="cpv"
+alias ff="fastfetch"
+alias icat="kitten icat"
+alias gsb="git status --short --branch --untracked-files=all"
 
 # Shell integrations
 eval "$(fzf --zsh)"
