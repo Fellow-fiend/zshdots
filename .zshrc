@@ -11,8 +11,8 @@ CONFIG_PATH="${XDG_CONFIG_HOME}:-${HOME/.config}/zsh"
 
 # Download Zinit, it it's not there yet
 if [ ! -d "$ZINIT_HOME" ]; then
-	mkdir -p "$(dirname $ZINIT_HOME)"
-	git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+    mkdir -p "$(dirname $ZINIT_HOME)"
+    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 fi
 
 # Source/Load zinit
@@ -48,6 +48,7 @@ bindkey -v
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 
+bindkey "^[." insert-last-word
 
 # History
 HISTSIZE=10000
@@ -92,6 +93,14 @@ alias cp="cpv"
 alias ff="fastfetch"
 alias icat="kitten icat"
 alias gsb="git status --short --branch --untracked-files=all"
+alias dwl="/home/fiend/code/packages/dwl/dwl"
+alias ns='npm start'
+alias nd='npm run dev'
+alias nb='npm build'
+alias ni='npm install'
+alias nii='npm init -y'
+alias slc='echo -e "\nTotal:" `sudo snapper list | tee /dev/stderr | wc -l | xargs -n 1 expr -2 + ` "snapshots"'
+
 
 # Shell integrations
 eval "$(fzf --zsh)"
